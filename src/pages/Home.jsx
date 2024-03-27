@@ -1,9 +1,55 @@
+import { useEffect, useState } from "react";
 import background5 from "../assets/background-5.png";
 import Cards from "../widgets/Cards";
 import FormularioReportar from "../widgets/FormularioReportar";
 import Nosotros from "../widgets/Nosotros";
+import { getNoticias } from "../repository/network/service";
 
 export default function Home() {
+  const [Desaparecidos, setDesaparecidos] = useState([]);
+
+  useEffect(() => {
+    obtenerDesaparecidos();
+  }, []);
+
+  const slider = Desaparecidos.map((desaparecido, index) => {
+    return (
+      <div
+        key={index}
+        className={`carousel-item w-100 ${index === 0 ? "active" : ""}`}
+      >
+        <div className="d-flex justify-content-center">
+          <img src={desaparecido.foto} className="d-block w-50" alt="..." />
+        </div>
+        <div className="carousel-caption d-md-block bg-body-secondary text-black">
+          <h5>{desaparecido.nombre}</h5>
+          <p>{desaparecido.descripcion}</p>
+        </div>
+      </div>
+    );
+  });
+
+  const buttonIndicators = Desaparecidos.map((_, index) => {
+    return (
+      <button
+        type="button"
+        key={index}
+        data-bs-target="#Desaparecidos"
+        data-bs-slide-to={index}
+        className="active text-black"
+        aria-current="true"
+        aria-label={`Slide ${index + 1}`}
+      ></button>
+    );
+  });
+
+
+  const obtenerDesaparecidos = async () => {
+    const response = await getNoticias();
+    setDesaparecidos(response);
+    console.log(response);
+  };
+
   return (
     <>
       <div
@@ -38,10 +84,39 @@ export default function Home() {
             informacion comunicate con nosotros.
           </p>
         </div>
-        <div className="container d-flex justify-content-around  h-auto w-100 my-4">
-          <Cards />
-          <Cards />
-          <Cards />
+        <div className="container  justify-content-around  h-auto w-50 my-2">
+          <div
+            id="Desaparecidos"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-indicators">{buttonIndicators}</div>
+            <div className="carousel-inner">{slider}</div>
+            <button
+              className="carousel-control-prev text-bg-danger"
+              type="button"
+              data-bs-target="#Desaparecidos"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next text-bg-danger"
+              type="button"
+              data-bs-target="#Desaparecidos"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon "
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
       </div>
 

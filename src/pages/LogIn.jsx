@@ -1,5 +1,6 @@
 import Madre from "../assets/madre.jpg";
 import { useState } from "react";
+import {logIn} from '../repository/network/service.js';
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -14,15 +15,31 @@ export default function LogIn() {
        return alert("Por favor llena todos los campos"); 
     }
 
-    if (email == "confiappadm2024@gmail.com"  && password == "confiapp2024") {
+   {/* if (email == "confiappadm2024@gmail.com"  && password == "confiapp2024") {
       localStorage.setItem("token", "admin");
       window.location.href = "/dashboard";
     
       
     }else{
       return alert("Usuario o contraseña incorrectos");
+    }*/}
+    const user = {
+      email: email,
+      password: password
     }
+    login(user);
+
+
   };
+
+  const login = async (user) => {
+    try {
+      const response = await logIn(user);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div>

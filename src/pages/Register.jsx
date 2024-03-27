@@ -1,12 +1,69 @@
+
+import { useState } from 'react';
+import image from '../assets/ado.avif'
+import {RegisterUser} from '../repository/network/service.js'
+
+
 export default function Register() {
+
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [tipo_de_identificacion, setTipo_de_identificacion] = useState("");
+  const [nu_identificacion, setNu_identificacion] = useState("");
+  const [email, setEmail] = useState("");
+  const [celular, setCelular] = useState("");
+  const [password, setPassword] = useState("");
+  const [Re_password, setRe_password] = useState("");
+
+
+
+
+  const handleSubmit = async(e) => {
+    
+    e.preventDefault();
+
+    console.log(nombre, apellido, tipo_de_identificacion, nu_identificacion, email, celular, password, Re_password);
+
+    if (nombre == "" || apellido == "" || tipo_de_identificacion == "" || nu_identificacion == "" || email == "" || celular == "" || password == "" || Re_password == "") {
+      return alert("Por favor llena todos los campos");
+    }
+
+    if (password !== Re_password) {
+      return alert("Las contraseñas no coinciden");
+    }
+
+    const user = {
+      nombres: nombre,
+      apellidos: apellido,
+      tipoIdentificacion: tipo_de_identificacion,
+      numerodeIdentificacion: nu_identificacion,
+      email: email,
+      telefono: celular,
+      password: password,
+    };
+    
+
+    const response = await RegisterUser(user);
+
+
+
+    console.log(response)
+
+
+  }
+
+
+
+
+
   return (
     <div>
       <section className="my-2 d-flex justify-content-center mx-5 ">
         <div className="col-6 align-items-center ">
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
+            src={image}
             alt=""
-            className="w-75"
+            className="img-fluid w-75 h-75 "
           />
         </div>
         <div className="col-6">
@@ -29,6 +86,7 @@ export default function Register() {
                   <input
                     type="text"
                     id="nombre"
+                    onChange={(e) => setNombre(e.target.value)}
                     className="form-control form-control-lg border-secondary "
                     placeholder="Pedro Ramon"
                   />
@@ -42,6 +100,7 @@ export default function Register() {
                   <input
                     type="text"
                     id="apellido"
+                    onChange={(e) => setApellido(e.target.value)}
                     className="form-control form-control-lg border-secondary "
                     placeholder="Perez Perez"
                   />
@@ -53,6 +112,7 @@ export default function Register() {
                   <select
                     name="tipo_de_identificacion"
                     id="ti_identifiacion"
+                    onChange={(e) => setTipo_de_identificacion(e.target.value)}
                     placeholder="Selecciona tu tipo de identificacion"
                     className="form-select form-select-lg mb-3 border-secondary "
                   >
@@ -70,6 +130,7 @@ export default function Register() {
                   </label>
                   <input
                     type="text"
+                    onChange={(e) => setNu_identificacion(e.target.value)}
                     id="nu_identificacion"
                     className="form-control form-control-lg border-secondary "
                     placeholder="Debes ser mayor de edad"
@@ -83,6 +144,7 @@ export default function Register() {
                   </label>
                   <input
                     type="email"
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     className="form-control form-control-lg border-secondary "
                     placeholder="name@mail.com"
@@ -96,6 +158,7 @@ export default function Register() {
                   </label>
                   <input
                     type="number"
+                    onChange={(e) => setCelular(e.target.value)}
                     id="celular"
                     className="form-control form-control-lg border-secondary "
                     placeholder="300-456-7890"
@@ -104,11 +167,15 @@ export default function Register() {
                 </div>
 
                 <div className="form-outline mb-4">
-                <label className="form-label fw-bolder fs-6" htmlFor="password">
+
+                <label className="form-label fw-bolder fs-6"
+
+                htmlFor="password">
                     Escribe tu Contraseña
                   </label>
                   <input
                     type="password"
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     className="form-control form-control-lg border-secondary "
                     placeholder="*********"
@@ -122,6 +189,7 @@ export default function Register() {
                   </label>
                   <input
                     type="password"
+                    onChange={(e) => setRe_password(e.target.value)}
                     id="Re_password"
                     className="form-control form-control-lg border-secondary "
                     placeholder="*********"
@@ -132,6 +200,7 @@ export default function Register() {
                     <input
                       className="form-check-input me-2 text-white border-black  "
                       type="checkbox"
+
                       id="flexCheckDefault"
                     />
                     <label
@@ -145,7 +214,8 @@ export default function Register() {
                 <div className="pt-1 mb-4 w-100">
                   <button
                     className="btn btn-dark btn-lg  w-100"
-                    type="button"
+                    type="submit"
+                    onClick={handleSubmit}
                   >
                     REGISTRATE AHORA
                   </button>
