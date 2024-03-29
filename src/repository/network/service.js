@@ -72,7 +72,7 @@ export const deleteNoticia = async (id) => {
 }
 
 
-export const logIn = async (user) => {
+export const logInfetch = async (user) => {
     try {
 
         const response = await axios.post(`${API_URL}login`, user)

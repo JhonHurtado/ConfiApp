@@ -12,7 +12,7 @@ export default function AppRoute() {
     <Routes>
       <Route element={<RenderLandingPage />}>
         <Route path="/" element={<Home />} />
-        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/Perfil" element={<Perfil />} />
       </Route>
 
       <Route path="/dashboard" element={<HomeDashboard />} />

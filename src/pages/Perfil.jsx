@@ -8,9 +8,20 @@ export default function Perfil() {
 
   const [menores, setMenores] = useState([]);
 
+  const isauthenticated = ()=>{
+    if(!localStorage.getItem('token')){
+      //redirec /home
+      window.location.href = "/"
+
+    }
+  
+  }
+
 
   useEffect(() => {
+    isauthenticated()
     obtenerMenores()
+
   }, [])
 
 

@@ -1,7 +1,21 @@
 import Tutor from "../../assets/tutor.png";
 import Posts from "../../assets/posts.png";
+import { useEffect } from "react";
 
 export default function HomeDashboard() {
+  const isauthenticated = () => {
+    if (!localStorage.getItem("token")) {
+      //redirec /home
+      window.location.href = "/";
+    }
+  };
+
+  useEffect(() => {
+    isauthenticated();
+  }, []);
+
+
+  
   return (
     <>
       <div className="container-fluid">
@@ -40,7 +54,10 @@ export default function HomeDashboard() {
                     En este apartado podrás gestionar los posts de desaparecidos
                     que se han publicado en la plataforma.
                   </p>
-                  <a href="/gestionarPost" className="btn btn-outline-primary fw-bold">
+                  <a
+                    href="/gestionarPost"
+                    className="btn btn-outline-primary fw-bold"
+                  >
                     Gestionar
                   </a>
                 </div>

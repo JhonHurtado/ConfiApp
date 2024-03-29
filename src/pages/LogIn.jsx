@@ -1,6 +1,6 @@
 import Madre from "../assets/madre.jpg";
 import { useState } from "react";
-import {logIn} from '../repository/network/service.js';
+import {logInfetch} from '../repository/network/service.js';
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -27,17 +27,27 @@ export default function LogIn() {
       email: email,
       password: password
     }
-    login(user);
+    const autenticate = login(user);
+
+    if (autenticate.token) {
+      localStorage.setItem("token", autenticate.token);
+      window.location.href = "/dashboard";
+    } else {
+      alert("Usuario o contraseña incorrectos");
+    }
+    
 
 
   };
 
   const login = async (user) => {
     try {
-      const response = await logIn(user);
-      console.log(response);
+      const response = await logInfetch(user);
+return response;
+
     } catch (error) {
       console.error(error);
+
     }
   }
 

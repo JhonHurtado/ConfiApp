@@ -1,4 +1,18 @@
 export default function Navbar() {
+
+  const isauthenticated = () => {
+    if (localStorage.getItem('token')) {
+      return(
+        <li className="nav-item">
+        <a className="nav-link fw-bold fs-5 text-white" href="/Perfil">
+          Perfil
+        </a>
+      </li>
+      )
+    }
+  }
+
+
   return (
     <div className="position-absolute  w-100 z-index-2  py-4 px-5 navopacity" >
       <nav className="navbar navbar-expand-lg ">
@@ -29,6 +43,7 @@ export default function Navbar() {
                   Nosotros
                 </a>
               </li>
+              {isauthenticated()}
             </ul>
             <div className="d-flex">
               <a className="btn btn-outline-white me-2 text-white btnLogin fw-bold" href="/login">
@@ -37,6 +52,7 @@ export default function Navbar() {
               <a className="btn btn-dark text-white fw-semibold" href="/register">
                 REGISTRARSE
               </a>
+
             </div>
           </div>
         </div>
