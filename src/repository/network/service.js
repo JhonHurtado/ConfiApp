@@ -76,7 +76,7 @@ export const logInfetch = async (user) => {
     try {
 
         const response = await axios.post(`${API_URL}login`, user)
-        console.log(response)
+        console.log(response.data)
         return response.data
 
     } catch (error) {

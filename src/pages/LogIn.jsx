@@ -27,27 +27,22 @@ export default function LogIn() {
       email: email,
       password: password
     }
-    const autenticate = login(user);
-
-    if (autenticate.token) {
-      localStorage.setItem("token", autenticate.token);
-      window.location.href = "/dashboard";
-    } else {
-      alert("Usuario o contraseña incorrectos");
-    }
-    
-
+    login(user);
 
   };
 
   const login = async (user) => {
     try {
       const response = await logInfetch(user);
-return response;
-
+      console.log(response.token);
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        window.location.href = "/Perfil";
+      } else {
+        alert("Usuario o contraseña incorrectos");
+      }
     } catch (error) {
       console.error(error);
-
     }
   }
 
